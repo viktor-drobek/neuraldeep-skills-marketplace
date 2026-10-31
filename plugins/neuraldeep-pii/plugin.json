@@ -1,0 +1,17 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "neuraldeep-pii",
+  "version": "1.0.0",
+  "description": "Personal-data anonymization and restoration validation. Submissions remain blocked.",
+  "author": {
+    "name": "Viktor Drobek",
+    "email": "viktor@drobek.online"
+  },
+  "homepage": "https://github.com/viktor-drobek/neuraldeep-pii",
+  "repository": "https://github.com/viktor-drobek/neuraldeep-pii.git",
+  "license": "MIT",
+  "keywords": [
+    "neuraldeep",
+    "neuraldeep-pii"
+  ]
+}

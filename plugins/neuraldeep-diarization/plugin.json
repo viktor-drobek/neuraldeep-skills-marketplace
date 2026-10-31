@@ -1,0 +1,17 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "neuraldeep-diarization",
+  "version": "1.0.0",
+  "description": "Guarded speaker diarization and offline merge with timed transcripts.",
+  "author": {
+    "name": "Viktor Drobek",
+    "email": "viktor@drobek.online"
+  },
+  "homepage": "https://github.com/viktor-drobek/neuraldeep-diarization",
+  "repository": "https://github.com/viktor-drobek/neuraldeep-diarization.git",
+  "license": "MIT",
+  "keywords": [
+    "neuraldeep",
+    "neuraldeep-diarization"
+  ]
+}

@@ -1,0 +1,475 @@
+# Test-first verification
+
+No billed endpoint was called during development or verification, and no audio
+was transcribed. Publication is separate from these test results.
+
+## Starting point
+
+The repository started from the shared neuraldeep-* helper and suite at
+neuraldeep-speechcore `5cc6ae3`, which includes the UTF-8 fix from `6e036b0`.
+With `SERVICE = "whisper"`, the copied suite failed with `KeyError: 'whisper'`
+in four helper tests, and the documentation tests failed because `SKILL.md`,
+`README.md` and `STARTER_RELAY.md` did not exist yet.
+
+## Red/green sequence
+
+1. Added `tests/test_whisper.py` (7 tests) before changing the helper. All
+   failed: `whisper` was not a known service, and the guard did not block it.
+2. Added `SYNCHRONOUS = {"search", "whisper"}`, the `whisper` operation
+   `transcribe`, the public price ID `whisper-1`, and fail-closed blocks in
+   `guard()` and `submission()`. The shared state-path test now skips the
+   `resume --job-id` case for every synchronous service, not only Search.
+3. Added `test_resume_of_edited_resumable_state_is_blocked_not_crashed`. It
+   failed: a hand-edited whisper state marked `submitted` came back `failed`.
+   Search, in the same situation, skipped polling and raised `UnboundLocalError`
+   on the undefined result. `resume` now refuses synchronous services before
+   reading any state, and the post-submission branch checks `SYNCHRONOUS`.
+4. Wrote the documentation; the documentation and fenced-example tests passed.
+
+## Coverage added for whisper-1
+
+- Service, operation and price ID match the public price list (`whisper-1`).
+- The guard keeps the generic Starter, price and unit checks, then blocks with
+  the unverified-quota reason.
+- `check` makes exactly two read-only GETs: `/v1/limits` and public prices.
+- `run` is blocked before any HTTP call or audio file read, leaving a
+  `blocked` state and no artifact.
+- `resume`, with `--job-id` or a saved state in any status, makes no request.
+- SKILL.md and STARTER_RELAY.md name the real endpoint and the block.
+
+## Live read-only evidence (2026-10-17)
+
+- `GET /v1/models`: `whisper-1` has `type: transcription` and per-minute pricing.
+- Public prices: `whisper-1` has `billing: minute`, `premium: false`.
+- `GET /v1/limits`: only `chat` and `vector` buckets; nothing for audio.
+- `GET /v1/audio/quota` and `GET /v1/audio/transcriptions/quota`: HTTP 404.
+  `GET /v1/audio/diarize/quota` exists, but it belongs to diarization.
+- `python3 -B scripts/client.py check transcribe` exited 1 with
+  `whisper-1 remaining-quota endpoint unverified; transcription disabled`,
+  so the Starter, subscription, key-status and non-premium checks passed live.
+
+Only response structure was inspected. No account values are stored in this repository.
+
+## Cross-review follow-up
+
+A cross-review by three models (Claude Opus, gpt-6.1-sol, gemma-4-31b) found
+no defect in the block itself, but several doc claims beyond the helper, and
+one missing test. Each fix got a test first:
+
+- The Search half of the resume fix had no test: with the guard narrowed to
+  `SERVICE == "whisper"`, all 46 tests still passed while a mocked Search
+  resume crashed. `test_resume_of_edited_resumable_state_is_blocked_not_crashed`
+  from the shared suite (neuraldeep-speechcore `a16c7a4`) is now in
+  `tests/test_client.py`; it fails on that narrowed guard and passes on the real one.
+- `test_skill_does_not_advertise_what_the_helper_refuses` failed first.
+  SKILL.md advertised transcription and a drop-in SDK replacement, claimed `run`
+  read no files (it resolves the key and writes a `blocked` state file), and said
+  "NeuralDeep GPUs", which the provider does not state for whisper-1.
+- The documentation test now also requires STARTER_RELAY.md to say that only
+  `check transcribe` reaches the network here. It must also describe the
+  undocumented quota probes as probes. It failed before the guide was qualified.
+
+## Malformed state and shared whisper tests
+
+- Ported from neuraldeep-speechcore `a9a8073`: `resume` now blocks a state file
+  that is not a dict, has a non-string `status` or a non-list `errors`, instead
+  of crashing with `TypeError`. `test_resume_of_malformed_state_is_blocked_not_crashed`
+  was added first and failed in all five cases.
+- Three whisper tests now live in the shared `tests/test_client.py`, so the
+  siblings get the same coverage: `test_whisper_is_blocked_without_verified_quota`,
+  `test_whisper_is_synchronous_and_refuses_resume` and
+  `test_whisper_run_is_blocked_before_any_request`. On the OCR helper, removing
+  `"whisper"` from `SYNCHRONOUS` fails the second, and removing the
+  `submission()` block fails the third; the first test alone caught neither.
+
+## Resume keeps the state file
+
+Ported from the sibling suites (for example neuraldeep-search `6e8bee9`): both
+`test_resume_of_edited_resumable_state_is_blocked_not_crashed` tests, the shared one
+and the whisper one, now also require the state file to be byte-for-byte unchanged.
+With a mutation that overwrites the state before `resume` refuses, the old tests
+passed; with the check, all three subtests of each fail.
+
+## Agent guide
+
+`AGENTS.md` gives Codex, Coddy and other coding agents the repo rules.
+`test_agents_guide_covers_codex_coddy_and_the_block` and the AGENTS.md entry in
+`test_fenced_examples_parse_without_execution` both failed before the file existed;
+the guide's Bash blocks pass `bash -n`.
+
+## Unknown polling status
+
+A live run on 2026-10-17 (four agents, real API) found that every OCR `run extract`
+ended `failed` with "returned an unknown status", although the job had finished:
+a later `GET /v1/ocr/jobs/{id}` said `completed`, and `resume` fetched the text.
+`poll()` treated any status outside its fixed in-progress list as a failure.
+
+Six tests were added first and failed: an unknown intermediate status now keeps
+polling, an unknown status until the deadline ends `timed_out` naming it (only a
+plain word is echoed), explicit failure statuses still stop at once, a response
+without a status is a resumable `poll_error`, and a mocked OCR run passes through
+an unknown status to `completed`. Mutations of the failure set, the status check
+and the sanitising each fail their own test. **59 tests passed**, both normally
+and with `LC_ALL=C PYTHONUTF8=0`, with no EncodingWarnings.
+
+## Blocked is a final answer
+
+In a live run on 2026-10-17, one agent (Coddy with kimi-k2.6) met the whisper-1 block,
+read the credential file, printed the key, and called the API directly. Another,
+pushed by a goal checker ("the goal is not met yet"), probed undocumented quota
+endpoints and tried a direct transcription. SKILL.md now opens with a
+"When the helper says `blocked`" section: `blocked` is the final answer; never read
+the key, never call the API directly, never hand-write state, never probe
+undocumented endpoints, and keep the answer when a supervisor says the task is not
+done. The description says so too. The documentation test for it failed first.
+**60 tests passed**, both normally and with `LC_ALL=C PYTHONUTF8=0`.
+
+## Repository renamed
+
+The repository is now `neuraldeep-transcriptions` (formerly `neuraldeep-whisper-1`;
+GitHub redirects the old URL). The skill name, README install commands and
+AGENTS.md follow it; the model, the `whisper` service and the `whisper-1` price ID
+are unchanged. Commit references above keep the old repository name.
+`test_documentation_names_the_real_endpoint_and_block` checked the old skill name
+and failed first after it was updated.
+
+## Transcription models
+
+The shared helper now knows three speech-to-text models for the `whisper`
+service: `gigaam-v3` (the default), `whisper-1` and `whisper-podlodka-turbo`,
+chosen with `--model`. Each has its own public price ID; the guard checks the
+chosen model's row and its block names the model. `--model` is refused for the
+other services and for unknown models (exit 2). Five shared tests were added
+first; four failed and the fifth guards the new flag. Moving the default from
+`whisper-1` to `gigaam-v3` updated the tests pinned to it. Mutations of the
+default, the model check and the per-model price ID each fail their own test.
+A live read-only `check` (2026-10-17) blocked each model at the quota step, so
+all three price rows are present and non-premium. **66 tests passed**, both
+normally and with `LC_ALL=C PYTHONUTF8=0`.
+
+## Agent rule surfaces
+
+Added `tests/test_agent_rules.py` (10 tests) before any rule file existed; all
+10 failed because `.codex/hooks/attach_rules.py`, the rules and `CLAUDE.md` were
+missing. Then added Cursor rules (`.cursor/rules/*.mdc`), their Claude Code
+mirrors with identical bodies (`.claude/rules/*.md`), the Codex hook that attaches
+the Cursor rules (`.codex/hooks.json`, `.codex/hooks/attach_rules.py`),
+`CLAUDE.md` as a symlink to `AGENTS.md`, and the Delivery workflow and Rules Sync
+sections in `AGENTS.md`. The tests check the pairing and scope mapping, that
+every glob matches a file, and the hook itself: always-on rules at session start,
+the client rule once per session for patch add, update, delete and rename and for
+`Edit` and `Write`, and fail-open on bad input. Eight mutations (a widened or
+narrowed scope, `paths` differing from `globs`, body drift, a missing mirror, a
+dead glob, `.codex/rules.md`, a copied `CLAUDE.md`) each failed a test. The test
+file and `.codex/hooks/` are identical across the neuraldeep-* repositories.
+**76 tests passed**, both normally and with `LC_ALL=C PYTHONUTF8=0`, with no
+`EncodingWarning` under `-X warn_default_encoding`.
+
+## Release metadata (v1.0.0)
+
+Added `tests/test_release.py` (3 tests, identical across the neuraldeep-*
+repositories) first. Two failed: `SKILL.md` had no `metadata.version` and
+`AGENTS.md` had no release steps; the tag check is skipped outside a tag build.
+`metadata.version: 1.0.0` is now in the `SKILL.md` frontmatter, the key Coddy
+reads (`coddy skills list` showed `1.0.0` for a copy under a scratch
+`CODDY_HOME`), and `AGENTS.md` has a Releases section. With
+`GITHUB_REF_TYPE=tag`, `GITHUB_REF_NAME=v1.0.0` passed and `v1.0.1` failed.
+**79 tests passed** (1 skipped outside a tag build), both normally and with
+`LC_ALL=C PYTHONUTF8=0`, with no `EncodingWarning` under
+`-X warn_default_encoding`.
+
+## Final results
+
+- `python3 -X warn_default_encoding -B -m unittest discover -s tests`:
+  **79 tests passed** (1 skipped outside a tag build), 0 EncodingWarnings.
+- The same suite under `LC_ALL=C PYTHONUTF8=0`: passed.
+- `python3 -B scripts/client.py --help`: passed, with no network call.
+- Fenced Python examples parsed with `ast.parse`; Bash examples passed `bash -n`.
+
+## Diarization service
+
+Port from neuraldeep-diarization: the shared helper now knows the `diarize`
+service (`POST /v1/audio/diarize`, price ID `audio:diarize`). Its quota at
+`/v1/audio/diarize/quota` reports `used` and `limit` minutes per `day` and
+`month`, verified read-only on 2026-10-18, and the guard requires `limit - used`
+to cover `--minutes`, at most 240, with files of at most 500 MB. An offline
+`merge` command joins a diarization with a timed transcript. `--minutes` and
+`merge` are refused for the other services (exit 2), and this service's
+behaviour is unchanged. The 16 shared tests and the merge case of the UTF-8 test
+were added first and failed with `KeyError: 'diarize'` and the missing
+`merge_transcript`. `SKILL.md` now points to the neuraldeep-diarization skill, whose `merge` consumes this endpoint's timed transcripts. `STARTER_RELAY.md` lists the diarization bucket.
+**95 tests passed** (1 skipped outside a tag build), both normally and with
+`LC_ALL=C PYTHONUTF8=0`, with no `EncodingWarning` under
+`-X warn_default_encoding`.
+
+## Diarization formats and cross-review fixes
+
+Port from neuraldeep-diarization. `merge --format json|vtt|srt|rttm` writes
+WebVTT with voice tags, SRT with a speaker prefix, or RTTM converted locally
+from the diarization alone. A cross-review of the diarization skill led to
+shared fixes, each with a test written first:
+- the diarization POST waits `max(120, 30 * minutes)` s;
+- every service's `run` checks `--output` before any request, so an output
+  equal to `--file` or in a missing directory blocks instead of overwriting the
+  input or losing a paid answer;
+- subtitle speaker labels are flattened, and the 1 ms cue minimum applies after
+  rounding;
+- `finite()` rejects integers too large for a float;
+- `merge` sorts its inputs by time and compares overlaps to the microsecond;
+- the 500 MB cap is tested.
+`STARTER_RELAY.md` documents the output check, and this service is otherwise
+unchanged. The 15 new shared tests failed first, apart from the flag-rule and
+cap tests, which only add coverage.
+**110 tests passed** (1 skipped outside a tag build), both normally and with
+`LC_ALL=C PYTHONUTF8=0`, with no `EncodingWarning` under
+`-X warn_default_encoding`.
+
+## Second cross-review fixes
+
+Port from neuraldeep-diarization `e376732`. `run` now also blocks an
+`--output` that is a directory, and checks the unresolved parent that
+`atomic_write()` uses, so a symlink in a read-only directory blocks too.
+WebVTT and SRT get one cue per transcript segment, through `label_segments()`.
+Huge timestamps and deeply nested input JSON end `blocked`. `merge` parses
+input bytes, accepting a UTF-8 byte order mark, and names a file that is not
+valid JSON. The new and changed shared tests failed first, apart from the
+read-only and missing directory cases, which already passed.
+**115 tests passed** (1 skipped outside a tag build), both normally and with
+`LC_ALL=C PYTHONUTF8=0`, with no `EncodingWarning` under
+`-X warn_default_encoding`.
+
+## Third cross-review fixes
+
+Port from neuraldeep-diarization `e4bdae5`. `run` requires read, write and
+search permission on the output directory, since `atomic_write()` needs all
+three. `merge` decodes strict UTF-8 (a byte order mark is fine), so UTF-16,
+UTF-32 and surrogate bytes block; a missing input, an unwritable output and a
+lone surrogate escape block with their own messages. `--output` equal to
+`--diarization` is tested. The new shared tests failed first, apart from that
+coverage case. **117 tests passed** (1 skipped outside a tag build), both
+normally and with `LC_ALL=C PYTHONUTF8=0`, with no `EncodingWarning` under
+`-X warn_default_encoding`.
+
+## Fourth cross-review fixes
+
+Port from neuraldeep-diarization `336ccf4`. The output check uses
+`os.path.isdir()`, because `Path.is_dir()` raises `PermissionError` on Python
+3.10 to 3.12 and broke the 3.10 CI job; `run` blocks replacing another user's
+file in a sticky directory before any request; the RTTM file ID shows
+non-UTF-8 file name bytes as U+FFFD; a tie test has the first speaker last in
+alphabetical order. The sticky-directory and file-name tests failed first.
+**120 tests passed** (1 skipped outside a tag build), both normally and with
+`LC_ALL=C PYTHONUTF8=0`, with no `EncodingWarning` under
+`-X warn_default_encoding`, and on Python 3.10.22 (Docker `python:3.10-slim`,
+non-root, no network).
+
+## Fifth cross-review fixes
+
+Port from neuraldeep-diarization `49688de`. `run` blocks an output name the
+file system refuses (any `lstat` error except `FileNotFoundError`), and the
+`run` and `merge` same-file checks add `os.path.samefile()` for hard links and
+case aliases. `--format rttm` blocks a lone surrogate speaker label with its own
+message, and the diarization artifact is written with ASCII escapes. The new
+shared tests failed first. **124 tests passed** (1 skipped outside a tag build),
+both normally and with `LC_ALL=C PYTHONUTF8=0`, with no `EncodingWarning` under
+`-X warn_default_encoding`, and on Python 3.10.22 (Docker `python:3.10-slim`,
+non-root, no network).
+
+## Sixth cross-review fixes
+
+Port from neuraldeep-diarization `5916a17`. An output that is the state file
+through a case alias blocks once the state exists, before any request; a new
+output name is created with `O_EXCL` and removed before the preflight, so names
+vfat, exFAT or SMB refuse on create block early; consecutive unassigned merge
+segments stay separate turns. The new shared tests failed first.
+**127 tests passed** (1 skipped outside a tag build), both normally and with
+`LC_ALL=C PYTHONUTF8=0`, with no `EncodingWarning` under
+`-X warn_default_encoding`, and on Python 3.10.22 (Docker `python:3.10-slim`,
+non-root, no network).
+
+## Seventh cross-review fix
+
+Port from neuraldeep-diarization `c10a179`. Once the state exists, `run`
+blocks an input file that is the state file, also through a case alias, before
+any request; before, `--file x --state x` with no `x` sent the helper's own
+state JSON. The new shared test failed first. **128 tests passed** (1 skipped
+outside a tag build), both normally and with `LC_ALL=C PYTHONUTF8=0`, with no
+`EncodingWarning` under `-X warn_default_encoding`, and on Python 3.10.22
+(Docker `python:3.10-slim`, non-root, no network).
+
+## Eighth cross-review fixes
+
+Port from neuraldeep-diarization `14c0056`. The U+FFFD repair for non-UTF-8
+file names applies to the RTTM file ID only, so speaker labels with lone
+surrogates block as in the other formats instead of merging; the
+input-is-the-state test also covers a dangling symlink. The new RTTM test
+failed first. **129 tests passed** (1 skipped outside a tag build), both
+normally and with `LC_ALL=C PYTHONUTF8=0`, with no `EncodingWarning` under
+`-X warn_default_encoding`, and on Python 3.10.22 (Docker `python:3.10-slim`,
+non-root, no network).
+
+## Streamed uploads
+
+Port from neuraldeep-diarization `3b918a7`. `multipart()` returns an
+`UploadBody` that `http.client` reads in 8 KB blocks with a normal
+`Content-Length`, so the socket timeout bounds each block, not the whole
+upload, and no copy of the file is held in memory; exactly the checked size is
+sent. The provider documents no chunked or resumable upload, so a broken upload
+is never resent. `UPLOAD_LIMITS` keeps only documented limits (diarize
+500 MB); this service documents none. The shared multipart tests read the body
+with `drain()`. The new shared tests failed first. **133 tests passed**
+(1 skipped outside a tag build), both normally and with `LC_ALL=C PYTHONUTF8=0`,
+with no `EncodingWarning` under `-X warn_default_encoding`, and on Python
+3.10.22 (Docker `python:3.10-slim`, non-root, no network).
+
+## Uploads opened before any request
+
+Port from neuraldeep-diarization `4c7979f`. `multipart()` opens the input with
+`O_NONBLOCK`, takes the size from `fstat()` on the open file and refuses
+anything but a regular file, so an unreadable file, a directory or a FIFO
+blocks before the preflight instead of failing mid-upload as a false
+`reconciliation_required`; `execute()` closes a body that was never sent. The
+docs now say 8 KB blocks, `http.client`'s block size. The new shared
+tests failed first. **135 tests passed** (1 skipped outside a tag build), both
+normally and with `LC_ALL=C PYTHONUTF8=0`, with no `EncodingWarning` under
+`-X warn_default_encoding`, and on Python 3.10.22 (Docker `python:3.10-slim`,
+non-root, no network).
+
+## Blocking upload reads
+
+Port from neuraldeep-diarization `5e03e41`. `multipart()` clears `O_NONBLOCK`
+with `os.set_blocking()` after the regular-file check, because some FUSE or
+network file systems honour the flag on reads, which would look like a
+shrinking file after the POST started. The new shared test failed first.
+**136 tests passed** (1 skipped outside a tag build), both normally and with
+`LC_ALL=C PYTHONUTF8=0`, with no `EncodingWarning` under
+`-X warn_default_encoding`, and on Python 3.10.22 (Docker `python:3.10-slim`,
+non-root, no network).
+
+## Per-skill keys from Coddy's environment
+
+Port from neuraldeep-diarization `52f2d5c`. The helper reads this skill's own
+`NEURALDEEP_TRANSCRIPTIONS_API_KEY`, then the shared `NEURALDEEP_API_KEY`, each from the environment first,
+then from `${CODDY_HOME}/.env`, parsed with the rules of Coddy's loader, so a
+key added there works without a restart. A value may hold several keys
+separated by commas; the first whose free preflight passes is used, and the
+state records its variable and number, never its value, so `resume` uses the
+same key. The Coddy provider file `neuraldeep-auth.json` is no longer read.
+The docs ask the user to add the key to `~/.coddy/.env`, never in the chat; the
+test commands and CI also blank `NEURALDEEP_TRANSCRIPTIONS_API_KEY`. The new shared tests failed first, and
+every helper test now patches `resolve_keys`. **140 tests passed** (1 skipped
+outside a tag build), both normally and with `LC_ALL=C PYTHONUTF8=0`, with no
+`EncodingWarning` under `-X warn_default_encoding`, and on Python 3.10.22
+(Docker `python:3.10-slim`, non-root, no network).
+
+## Explained API errors
+
+Port from neuraldeep-diarization `9c19350`. An HTTP error now reads
+`HTTP <code> (<fixed hint>)` for every status the provider documents (400, 401,
+408, 422, 429, 500, 502, 503), with `retry after N s` and `window session|week`
+only for well-formed `Retry-After` and `X-Window` values; the provider's body and
+reason text are still never shown. SKILL.md has an "Error handling" table of
+these statuses, keeping this service's own notes, and a shared test keeps it in
+step with `ERROR_HINTS`. The three new shared tests failed first.
+**143 tests passed** (1 skipped outside a tag build), both normally and with
+`LC_ALL=C PYTHONUTF8=0`, with no `EncodingWarning` under
+`-X warn_default_encoding`, and on Python 3.10.22 (Docker `python:3.10-slim`,
+non-root, no network).
+
+## .env read as bytes
+
+Port from neuraldeep-diarization `69cedbd`. `read_dotenv()` decodes
+`${CODDY_HOME}/.env` with replacement, so one non-UTF-8 byte no longer hides
+every key in it, as in Coddy's line-by-line read; the Error handling table says
+the key may be in the environment or `~/.coddy/.env`; a cap test closes the
+upload files it opens. The new shared tests failed first. **144 tests passed**
+(1 skipped outside a tag build), both normally and with `LC_ALL=C PYTHONUTF8=0`,
+with no `EncodingWarning` under `-X warn_default_encoding`, no `ResourceWarning`
+under `-W always::ResourceWarning`, and on Python 3.10.22 (Docker
+`python:3.10-slim`, non-root, no network).
+
+## Non-regular outputs and the 401 row
+
+Port from neuraldeep-diarization `0cf376e`. `run` blocks, before any request,
+an existing `--output` that is a FIFO, socket or device (also behind a
+symlink), which `atomic_write()` would replace after the paid request; a
+dangling symlink is still replaced like a missing file. The 401 row of the
+Error handling table asks the user to check the key and tells the agent never
+to read `~/.coddy/.env` itself. The new shared tests failed first.
+**145 tests passed** (1 skipped outside a tag build), both normally and with
+`LC_ALL=C PYTHONUTF8=0`, with no `EncodingWarning` under
+`-X warn_default_encoding`, and on Python 3.10.22 (Docker `python:3.10-slim`,
+non-root, no network).
+
+## Paying from the wallet
+
+Port from neuraldeep-diarization `21542cd`. A key in wallet mode can pay, but
+only with the user's approval: a wallet key skips the subscription quota and
+gets an estimate (quota units x the public price, rounded up to kopecks),
+checked against the wallet balance and the key's spending cap; subscription keys
+are preferred; without `--wallet-limit` (the roubles the user approved) `check`
+and `run` end `wallet_approval_required` with the estimate and nothing sent. In this skill the submission stays disabled, also from the wallet.
+The subscription guard names the failing condition. SKILL.md has a "Paying from
+the wallet" section, AGENTS.md forbids `--wallet-limit` without the user's
+approval, and STARTER_RELAY.md lists the new status. The new shared tests failed
+first. **154 tests passed** (1 skipped outside a tag build), both normally and
+with `LC_ALL=C PYTHONUTF8=0`, with no `EncodingWarning` under
+`-X warn_default_encoding`, and on Python 3.10.22 (Docker `python:3.10-slim`,
+non-root, no network).
+
+## Wallet-paid transcription and SpeechCore uploads
+
+Port from neuraldeep-diarization `309f18a`. With a wallet key and the user's
+approval (`--wallet-limit`) the shared helper now posts `file` and `model` to
+`/v1/audio/transcriptions` and validates the synchronous answer, or posts the
+file to SpeechCore's `/upload` and polls the job; subscription keys stay blocked
+at the guard, since neither service has a verified remaining-quota endpoint.
+`--minutes` is required for every minute-billed service, and the wallet warning
+names the price row's output-token rate when it has one. This skill's SKILL.md, README.md, AGENTS.md, STARTER_RELAY.md and `client` rule now describe wallet transcription; `tests/test_whisper.py` now checks that a subscription run sends nothing and a wallet check asks for approval, and its documentation tests failed first.
+The new shared tests failed first. **159 tests passed** (1 skipped outside a tag
+build), both normally and with `LC_ALL=C PYTHONUTF8=0`, with no `EncodingWarning`
+under `-X warn_default_encoding`, and on Python 3.10.22 (Docker
+`python:3.10-slim`, non-root, no network).
+
+## Missing home directory
+
+Port from neuraldeep-diarization `03eb992`. When no home directory can be
+determined, `resolve_keys()` treats it as "no .env" and the CLI prints the
+blocked envelope instead of a traceback. The Codex section of AGENTS.md names the environment and `${CODDY_HOME:-~/.coddy}/.env` instead of `~/.coddy`. The new shared test failed
+first. **160 tests passed** (1 skipped outside a tag build), both normally and
+with `LC_ALL=C PYTHONUTF8=0`, with no `EncodingWarning` under
+`-X warn_default_encoding`, and on Python 3.10.22 (Docker `python:3.10-slim`,
+non-root, no network).
+
+## Release metadata (v2.0.0)
+
+`metadata.version` is now 2.0.0, a major release under semantic versioning,
+because the key source changed incompatibly: the helper no longer reads the
+Coddy provider file `providers/neuraldeep/neuraldeep-auth.json`, only this
+skill's own variable and the shared `NEURALDEEP_API_KEY` from the environment or
+`${CODDY_HOME:-~/.coddy}/.env`; a key kept only in the provider file must be
+added to `.env`. The other changes since v1.0.0 add features: the diarize
+service and its formats, streamed uploads with documented size limits,
+explained API errors, wallet billing with the user's approval, and wallet-paid
+transcription and SpeechCore uploads. `tests/test_release.py` passes; the tag
+check runs on the `v2.0.0` tag build after the merge.
+
+## README and agent-rule verification (2026-10-26)
+
+Added the shared README contract and stronger native-rule checks before the documentation and configuration fixes. The initial runs failed on missing README sections and host details, missing fork matching and incomplete new-family workflow guidance. A further failing recovery-guide test caught obsolete claims about wallet transcription and SpeechCore uploads.
+
+The full source suite passed on Python 3.14.4 in normal, C-locale and encoding-warning modes. Each mode ran **170 tests with 1 expected non-tag skip**. No EncodingWarning was emitted. The runner supplied PATH, HOME and TMPDIR in a cleared environment, a nonexistent CODDY_HOME and no NeuralDeep credentials. It invoked these commands from the source root.
+
+```bash
+python3 -B -m unittest discover -s tests
+LC_ALL=C PYTHONUTF8=0 python3 -B -m unittest discover -s tests
+python3 -X warn_default_encoding -B -m unittest discover -s tests
+python3 -B scripts/client.py --help
+git diff --check
+```
+
+The README CLI examples passed argument parsing without operation execution. Fenced Bash examples passed `bash -n`. New-family JSON examples passed the pure planner. All Python files parsed with the Python 3.10 grammar. This is a syntax check, not a local Python 3.10 runtime claim. The source workflow was included in the successful actionlint check of all 16 source and collection workflows.
+
+Tests check the CLAUDE.md symlink, Cursor and Claude rule parity and scopes, Codex session and edit payloads, deduplication, fork resets and fail-open behavior. These are offline adapter checks, not confirmation of native host UI context loading. Interactive Codex `/hooks` approval was not performed. A collection-level native CLI probe was attempted but did not complete.
+
+Guarded helper hashes are unchanged. No live skill API call, paid skill submission, global provider or MCP change, release or PR merge was performed for this documentation verification.

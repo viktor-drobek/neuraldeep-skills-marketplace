@@ -1,0 +1,17 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "neuraldeep-music",
+  "version": "1.0.0",
+  "description": "Wallet-approved text-to-music, WAV artifacts and resumable jobs. Subscription generation remains blocked.",
+  "author": {
+    "name": "Viktor Drobek",
+    "email": "viktor@drobek.online"
+  },
+  "homepage": "https://github.com/viktor-drobek/neuraldeep-music",
+  "repository": "https://github.com/viktor-drobek/neuraldeep-music.git",
+  "license": "MIT",
+  "keywords": [
+    "neuraldeep",
+    "neuraldeep-music"
+  ]
+}

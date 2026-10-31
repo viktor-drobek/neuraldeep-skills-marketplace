@@ -1,0 +1,17 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "neuraldeep-rerank",
+  "version": "1.0.0",
+  "description": "Document reranking validation and read-only preflight. Inference remains blocked.",
+  "author": {
+    "name": "Viktor Drobek",
+    "email": "viktor@drobek.online"
+  },
+  "homepage": "https://github.com/viktor-drobek/neuraldeep-rerank",
+  "repository": "https://github.com/viktor-drobek/neuraldeep-rerank.git",
+  "license": "MIT",
+  "keywords": [
+    "neuraldeep",
+    "neuraldeep-rerank"
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "name": "neuraldeep-skills",
+  "owner": {
+    "name": "Viktor Drobek",
+    "email": "viktor@drobek.online"
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "description": "Guarded NeuralDeep skills by Viktor Drobek."
+  },
+  "plugins": [
+    {
+      "name": "neuraldeep-books",
+      "source": "./plugins/neuraldeep-books",
+      "version": "1.0.0",
+      "description": "Catalogue, contents, chapters and full-text search. No vector inference or model-answer calls.",
+      "category": "productivity",
+      "license": "MIT"
+    },
+    {
+      "name": "neuraldeep-chat",
+      "source": "./plugins/neuraldeep-chat",
+      "version": "1.0.0",
+      "description": "Chat, single-image vision and structured-output validation. Inference remains blocked.",
+      "category": "productivity",
+      "license": "MIT"
+    },
+    {
+      "name": "neuraldeep-decisions",
+      "source": "./plugins/neuraldeep-decisions",
+      "version": "1.0.0",
+      "description": "Text classification and scales with explicit wallet approval. Subscription requests remain blocked.",
+      "category": "productivity",
+      "license": "MIT"
+    },
+    {
+      "name": "neuraldeep-diarization",
+      "source": "./plugins/neuraldeep-diarization",
+      "version": "1.0.0",
+      "description": "Guarded speaker diarization and offline merge with timed transcripts.",
+      "category": "productivity",
+      "license": "MIT"
+    },
+    {
+      "name": "neuraldeep-drift",
+      "source": "./plugins/neuraldeep-drift",
+      "version": "1.0.0",
+      "description": "Remote-agent API reference and local payload validation. Execution remains blocked before network access.",
+      "category": "productivity",
+      "license": "MIT"
+    },
+    {
+      "name": "neuraldeep-embeddings",
+      "source": "./plugins/neuraldeep-embeddings",
+      "version": "1.0.0",
+      "description": "Embedding payload validation, retrieval prefixes and read-only preflight. Inference remains blocked.",
+      "category": "productivity",
+      "license": "MIT"
+    },
+    {
+      "name": "neuraldeep-images",
+      "source": "./plugins/neuraldeep-images",
+      "version": "2.0.0",
+      "description": "Guarded image generation, upscale, background removal, enhancement and avatars.",
+      "category": "productivity",
+      "license": "MIT"
+    },
+    {
+      "name": "neuraldeep-music",
+      "source": "./plugins/neuraldeep-music",
+      "version": "1.0.0",
+      "description": "Wallet-approved text-to-music, WAV artifacts and resumable jobs. Subscription generation remains blocked.",
+      "category": "productivity",
+      "license": "MIT"
+    },
+    {
+      "name": "neuraldeep-ocr",
+      "source": "./plugins/neuraldeep-ocr",
+      "version": "2.0.0",
+      "description": "Guarded PDF and image OCR with fast/pro profiles, page ranges and resumable jobs.",
+      "category": "productivity",
+      "license": "MIT"
+    },
+    {
+      "name": "neuraldeep-pii",
+      "source": "./plugins/neuraldeep-pii",
+      "version": "1.0.0",
+      "description": "Personal-data anonymization and restoration validation. Submissions remain blocked.",
+      "category": "productivity",
+      "license": "MIT"
+    },
+    {
+      "name": "neuraldeep-rerank",
+      "source": "./plugins/neuraldeep-rerank",
+      "version": "1.0.0",
+      "description": "Document reranking validation and read-only preflight. Inference remains blocked.",
+      "category": "productivity",
+      "license": "MIT"
+    },
+    {
+      "name": "neuraldeep-search",
+      "source": "./plugins/neuraldeep-search",
+      "version": "2.0.0",
+      "description": "Guarded web search, Telegram search and site crawling with live quota checks.",
+      "category": "productivity",
+      "license": "MIT"
+    },
+    {
+      "name": "neuraldeep-speechcore",
+      "source": "./plugins/neuraldeep-speechcore",
+      "version": "2.0.0",
+      "description": "Wallet-approved recording uploads and resumable transcripts. Subscription uploads remain blocked.",
+      "category": "productivity",
+      "license": "MIT"
+    },
+    {
+      "name": "neuraldeep-transcriptions",
+      "source": "./plugins/neuraldeep-transcriptions",
+      "version": "2.0.0",
+      "description": "Wallet-approved gigaam-v3 and Whisper transcription. Subscription submissions remain blocked.",
+      "category": "productivity",
+      "license": "MIT"
+    },
+    {
+      "name": "neuraldeep-tts",
+      "source": "./plugins/neuraldeep-tts",
+      "version": "1.0.0",
+      "description": "Wallet-approved WAV speech synthesis with eight voices. Subscription synthesis remains blocked.",
+      "category": "productivity",
+      "license": "MIT"
+    }
+  ]
+}

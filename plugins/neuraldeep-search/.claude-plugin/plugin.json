@@ -1,0 +1,16 @@
+{
+  "name": "neuraldeep-search",
+  "version": "2.0.0",
+  "description": "Guarded web search, Telegram search and site crawling with live quota checks.",
+  "author": {
+    "name": "Viktor Drobek",
+    "email": "viktor@drobek.online"
+  },
+  "homepage": "https://github.com/viktor-drobek/neuraldeep-search",
+  "repository": "https://github.com/viktor-drobek/neuraldeep-search.git",
+  "license": "MIT",
+  "keywords": [
+    "neuraldeep",
+    "neuraldeep-search"
+  ]
+}

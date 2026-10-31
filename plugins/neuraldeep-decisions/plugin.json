@@ -1,0 +1,17 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "neuraldeep-decisions",
+  "version": "1.0.0",
+  "description": "Text classification and scales with explicit wallet approval. Subscription requests remain blocked.",
+  "author": {
+    "name": "Viktor Drobek",
+    "email": "viktor@drobek.online"
+  },
+  "homepage": "https://github.com/viktor-drobek/neuraldeep-decisions",
+  "repository": "https://github.com/viktor-drobek/neuraldeep-decisions.git",
+  "license": "MIT",
+  "keywords": [
+    "neuraldeep",
+    "neuraldeep-decisions"
+  ]
+}

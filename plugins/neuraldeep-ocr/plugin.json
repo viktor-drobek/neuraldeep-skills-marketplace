@@ -1,0 +1,17 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "neuraldeep-ocr",
+  "version": "2.0.0",
+  "description": "Guarded PDF and image OCR with fast/pro profiles, page ranges and resumable jobs.",
+  "author": {
+    "name": "Viktor Drobek",
+    "email": "viktor@drobek.online"
+  },
+  "homepage": "https://github.com/viktor-drobek/neuraldeep-ocr",
+  "repository": "https://github.com/viktor-drobek/neuraldeep-ocr.git",
+  "license": "MIT",
+  "keywords": [
+    "neuraldeep",
+    "neuraldeep-ocr"
+  ]
+}

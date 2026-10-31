@@ -1,0 +1,16 @@
+{
+  "name": "neuraldeep-drift",
+  "version": "1.0.0",
+  "description": "Remote-agent API reference and local payload validation. Execution remains blocked before network access.",
+  "author": {
+    "name": "Viktor Drobek",
+    "email": "viktor@drobek.online"
+  },
+  "homepage": "https://github.com/viktor-drobek/neuraldeep-drift",
+  "repository": "https://github.com/viktor-drobek/neuraldeep-drift.git",
+  "license": "MIT",
+  "keywords": [
+    "neuraldeep",
+    "neuraldeep-drift"
+  ]
+}

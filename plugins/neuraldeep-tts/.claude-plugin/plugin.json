@@ -1,0 +1,16 @@
+{
+  "name": "neuraldeep-tts",
+  "version": "1.0.0",
+  "description": "Wallet-approved WAV speech synthesis with eight voices. Subscription synthesis remains blocked.",
+  "author": {
+    "name": "Viktor Drobek",
+    "email": "viktor@drobek.online"
+  },
+  "homepage": "https://github.com/viktor-drobek/neuraldeep-tts",
+  "repository": "https://github.com/viktor-drobek/neuraldeep-tts.git",
+  "license": "MIT",
+  "keywords": [
+    "neuraldeep",
+    "neuraldeep-tts"
+  ]
+}

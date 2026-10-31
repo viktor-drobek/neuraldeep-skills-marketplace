@@ -1,0 +1,17 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "neuraldeep-books",
+  "version": "1.0.0",
+  "description": "Catalogue, contents, chapters and full-text search. No vector inference or model-answer calls.",
+  "author": {
+    "name": "Viktor Drobek",
+    "email": "viktor@drobek.online"
+  },
+  "homepage": "https://github.com/viktor-drobek/neuraldeep-books",
+  "repository": "https://github.com/viktor-drobek/neuraldeep-books.git",
+  "license": "MIT",
+  "keywords": [
+    "neuraldeep",
+    "neuraldeep-books"
+  ]
+}

@@ -1,0 +1,249 @@
+{
+  "name": "neuraldeep-skills",
+  "version": "1.0.0",
+  "plugins": [
+    {
+      "name": "neuraldeep-books",
+      "version": "1.0.0",
+      "description": "Catalogue, contents, chapters and full-text search. No vector inference or model-answer calls.",
+      "source": "https://github.com/viktor-drobek/neuraldeep-books.git",
+      "commit": "20058271827c5535461ad0d150fd2dd3ef51b4fc",
+      "files": {
+        "LICENSE": "c5b1ccf4f087de762b65d94d3528430e4a5356ef682b0505b46599b666877c01",
+        "README.md": "016f8eb06021b65e834beb9051d54f12137ab452ff9df1d71903d81dc9007eed",
+        "SKILL.md": "f7cab1bc1d44866127d851f1094383bc6e1acbc3006fb00f70aa6697caa0b88c",
+        "STARTER_RELAY.md": "d615c0b89a65a2523db7d7d5f35cafd31537d2c216b8a9935a80e941edb2c925",
+        "TESTING.md": "0530dc297f607cbb9222f305864dc189bc440a22672f7733e619d9770f8d34d1",
+        "scripts/client.py": "9e64b8da5142144005dd5930ec3e6a680cc219c85aed72bd827fadfe55426381",
+        "scripts/guarded.py": "ab6822cdccb409c55bb7a06a9f85e06d577a2be526da2007c4624a0cab757955",
+        "scripts/service_api.py": "d79e5a00627b03e39bca37da142e2242fc2b10ca962772150454a5dc855bb684"
+      }
+    },
+    {
+      "name": "neuraldeep-chat",
+      "version": "1.0.0",
+      "description": "Chat, single-image vision and structured-output validation. Inference remains blocked.",
+      "source": "https://github.com/viktor-drobek/neuraldeep-chat.git",
+      "commit": "427f77bb1ace43dbede92451ba09521dd0afa711",
+      "files": {
+        "LICENSE": "c5b1ccf4f087de762b65d94d3528430e4a5356ef682b0505b46599b666877c01",
+        "README.md": "0649b6d196c2f9323dd543359bb7aa344c5dc7e704c0ebb9e93301a8a9235f10",
+        "SKILL.md": "0ad66467a53eface513d9001306df08d929a014ba586d35055e18a1553029e8a",
+        "STARTER_RELAY.md": "4de20181bac201b515ae2cb195870820ee0cd40cabf7b31e576c1da5e775b48f",
+        "TESTING.md": "0530dc297f607cbb9222f305864dc189bc440a22672f7733e619d9770f8d34d1",
+        "scripts/client.py": "ffc00e315f4278d70a2c0b192d425fd42194afc4867afacac05fddbf8ac14e72",
+        "scripts/guarded.py": "ab6822cdccb409c55bb7a06a9f85e06d577a2be526da2007c4624a0cab757955",
+        "scripts/service_api.py": "d79e5a00627b03e39bca37da142e2242fc2b10ca962772150454a5dc855bb684"
+      }
+    },
+    {
+      "name": "neuraldeep-decisions",
+      "version": "1.0.0",
+      "description": "Text classification and scales with explicit wallet approval. Subscription requests remain blocked.",
+      "source": "https://github.com/viktor-drobek/neuraldeep-decisions.git",
+      "commit": "43d3633284d7d9d037a7337808becf134d70b94f",
+      "files": {
+        "LICENSE": "c5b1ccf4f087de762b65d94d3528430e4a5356ef682b0505b46599b666877c01",
+        "README.md": "6c5ae59dd0bc100a17694de28727ecefe0d3bd0fc4e799d4c8290a143e56ba01",
+        "SKILL.md": "b0893de5e2dfabc62b5c1439cc7d87ad1088ab41971c58a55f6458ccc6d0beeb",
+        "STARTER_RELAY.md": "0223cf0640c07b06acc35a98fc95e1e56170cdf00d91288497018f1c9457aa9f",
+        "TESTING.md": "0530dc297f607cbb9222f305864dc189bc440a22672f7733e619d9770f8d34d1",
+        "scripts/client.py": "a9b19eee431a6eff663fa6fdfa4cc494632d27aa643a04ca4e66e7d84f9b83ce",
+        "scripts/guarded.py": "ab6822cdccb409c55bb7a06a9f85e06d577a2be526da2007c4624a0cab757955",
+        "scripts/service_api.py": "d79e5a00627b03e39bca37da142e2242fc2b10ca962772150454a5dc855bb684"
+      }
+    },
+    {
+      "name": "neuraldeep-diarization",
+      "version": "1.0.0",
+      "description": "Guarded speaker diarization and offline merge with timed transcripts.",
+      "source": "https://github.com/viktor-drobek/neuraldeep-diarization.git",
+      "commit": "74b41e60d162fe97af17aa43a5b1c71aa4274c9e",
+      "files": {
+        "LICENSE": "c5b1ccf4f087de762b65d94d3528430e4a5356ef682b0505b46599b666877c01",
+        "README.md": "0a9bb10e30162a32e3df56fe07e9f0f48bbf1d01b583a7afacf173a6a9cbd5d2",
+        "SKILL.md": "3516526b6446d469ed106c4bfde92bd814402a97851cf99a45bca0374ea75c6e",
+        "STARTER_RELAY.md": "942b2bebe9dbad97f2a4bcad0a1f5706c7204885d95c8b22a7d5618cb4e83685",
+        "TESTING.md": "6748a701a27c7264e2392fd248a0e0e9858924fc283c050b8af6221563fb545a",
+        "scripts/client.py": "ab6822cdccb409c55bb7a06a9f85e06d577a2be526da2007c4624a0cab757955"
+      }
+    },
+    {
+      "name": "neuraldeep-drift",
+      "version": "1.0.0",
+      "description": "Remote-agent API reference and local payload validation. Execution remains blocked before network access.",
+      "source": "https://github.com/viktor-drobek/neuraldeep-drift.git",
+      "commit": "26e80a9a9a78e5b1b3f9555c078471f1eb9048c0",
+      "files": {
+        "LICENSE": "c5b1ccf4f087de762b65d94d3528430e4a5356ef682b0505b46599b666877c01",
+        "README.md": "82bb24d6fe810267a92167e03688374070ea973d0881b34b4bf08e5260666597",
+        "SKILL.md": "f4c66fbccec9225ab6cf5f8a9e12d279fa21e9d5f895e960311f49edcf076946",
+        "STARTER_RELAY.md": "91466c26593e10e2b279a0c1ad00357162a81148b35118faccb45d17ab1903b0",
+        "TESTING.md": "0530dc297f607cbb9222f305864dc189bc440a22672f7733e619d9770f8d34d1",
+        "scripts/client.py": "80ec532fad7466046cd14fdf23be05952b00f35e4f1281ab036fd2369c02ba5a",
+        "scripts/guarded.py": "ab6822cdccb409c55bb7a06a9f85e06d577a2be526da2007c4624a0cab757955",
+        "scripts/service_api.py": "d79e5a00627b03e39bca37da142e2242fc2b10ca962772150454a5dc855bb684"
+      }
+    },
+    {
+      "name": "neuraldeep-embeddings",
+      "version": "1.0.0",
+      "description": "Embedding payload validation, retrieval prefixes and read-only preflight. Inference remains blocked.",
+      "source": "https://github.com/viktor-drobek/neuraldeep-embeddings.git",
+      "commit": "a481bd3b2f286f596b9a9830cc7eabd576c5a6c4",
+      "files": {
+        "LICENSE": "c5b1ccf4f087de762b65d94d3528430e4a5356ef682b0505b46599b666877c01",
+        "README.md": "076f00c1d2128130696b62e59670598db6079802a9a46a15b03dbde33910241d",
+        "SKILL.md": "6e0869ff0b4f0e8ae7dc8552583094cfcc6d3b46958541d0d272728f285491c1",
+        "STARTER_RELAY.md": "208c1dbadc31df3c0ff5e6c741c47bf4713da79a863e60526aecacdc0877db53",
+        "TESTING.md": "0530dc297f607cbb9222f305864dc189bc440a22672f7733e619d9770f8d34d1",
+        "scripts/client.py": "3a8e25ea0a5749e60d42911f82b4b62c03804a707da1253b60b9ae07f970ae71",
+        "scripts/guarded.py": "ab6822cdccb409c55bb7a06a9f85e06d577a2be526da2007c4624a0cab757955",
+        "scripts/service_api.py": "d79e5a00627b03e39bca37da142e2242fc2b10ca962772150454a5dc855bb684"
+      }
+    },
+    {
+      "name": "neuraldeep-images",
+      "version": "2.0.0",
+      "description": "Guarded image generation, upscale, background removal, enhancement and avatars.",
+      "source": "https://github.com/viktor-drobek/neuraldeep-images.git",
+      "commit": "0077d67c94bb532c15eea3f980d94a7345d89bab",
+      "files": {
+        "LICENSE": "c5b1ccf4f087de762b65d94d3528430e4a5356ef682b0505b46599b666877c01",
+        "README.md": "9d0a569b44fff84daf93d7d49338d8e2852c3c92b8dd2848ac7fb2984e075870",
+        "SKILL.md": "cedcd2d2b98771dd93230a72cc765a5025e21da6572ba85eb718eec252488c05",
+        "STARTER_RELAY.md": "cc7612995b620d8d84f4daa1cea5987e35e2dfcd5a32558a26a663bf6c6b343d",
+        "TESTING.md": "8d48a5b1010afe767003491eccff823834a34e2da36936897ba5b1d01f335e7a",
+        "scripts/client.py": "dd4ccc6a58a0e9b73f17e847fe404802dea06efa4f8c73daf713be11582f7fe6"
+      }
+    },
+    {
+      "name": "neuraldeep-music",
+      "version": "1.0.0",
+      "description": "Wallet-approved text-to-music, WAV artifacts and resumable jobs. Subscription generation remains blocked.",
+      "source": "https://github.com/viktor-drobek/neuraldeep-music.git",
+      "commit": "b55e6d19de5d870d210d00e2e749d3575ed755f5",
+      "files": {
+        "LICENSE": "c5b1ccf4f087de762b65d94d3528430e4a5356ef682b0505b46599b666877c01",
+        "README.md": "4374faa62952ce19143c807386eb4ada060fb8ae1d560c88d3f0eca571d6c641",
+        "SKILL.md": "69474f03d3ef65ffac4540d240e3eefeb8f0d30aa5d01c0c62772c0a53147fd0",
+        "STARTER_RELAY.md": "68b2ce67c21cfe75746d837900a904034f1ede39758be454030c038fc1de6d9e",
+        "TESTING.md": "0530dc297f607cbb9222f305864dc189bc440a22672f7733e619d9770f8d34d1",
+        "scripts/client.py": "ba764dbc883fd5590a63e687d65469d093162ead2f7a90fe4f93ad7a5a0b0f76",
+        "scripts/guarded.py": "ab6822cdccb409c55bb7a06a9f85e06d577a2be526da2007c4624a0cab757955",
+        "scripts/service_api.py": "d79e5a00627b03e39bca37da142e2242fc2b10ca962772150454a5dc855bb684"
+      }
+    },
+    {
+      "name": "neuraldeep-ocr",
+      "version": "2.0.0",
+      "description": "Guarded PDF and image OCR with fast/pro profiles, page ranges and resumable jobs.",
+      "source": "https://github.com/viktor-drobek/neuraldeep-ocr.git",
+      "commit": "6f174b11b2425194ff1da8e466011d3bb6f6fdab",
+      "files": {
+        "LICENSE": "c5b1ccf4f087de762b65d94d3528430e4a5356ef682b0505b46599b666877c01",
+        "README.md": "eb94963acfdb41f7f45b9d430f8fa02cc3296f48068a9821267f2fc999669eca",
+        "SKILL.md": "0bff24ab9197db442a99f8240b6861c244ac5878f9a367f6f6806eea05000f94",
+        "STARTER_RELAY.md": "cc7612995b620d8d84f4daa1cea5987e35e2dfcd5a32558a26a663bf6c6b343d",
+        "TESTING.md": "fc476b05d190cd11a3775fe33463f05d92976705aaf867665cf4b10a4e4b458c",
+        "scripts/client.py": "493726fbe62579f90ef9b15cdfb4d7cf88ffca068d49c04ada1967ceecb87343"
+      }
+    },
+    {
+      "name": "neuraldeep-pii",
+      "version": "1.0.0",
+      "description": "Personal-data anonymization and restoration validation. Submissions remain blocked.",
+      "source": "https://github.com/viktor-drobek/neuraldeep-pii.git",
+      "commit": "96756ddf582e20a922d4e3a5c3effd49efd0d30d",
+      "files": {
+        "LICENSE": "c5b1ccf4f087de762b65d94d3528430e4a5356ef682b0505b46599b666877c01",
+        "README.md": "b009b3c3f86cd6b333fc9ce7ec1726f8de3cc62cf45cc3bc8539a32f65a826f1",
+        "SKILL.md": "9ae4b2f2d67a2c215b57755927260572ceda285af1863cea427515c4c73e909c",
+        "STARTER_RELAY.md": "277e975a916665a8c1c71225ff4f193aa191d0c0b4d39dc0cfa09979bc194c7d",
+        "TESTING.md": "0530dc297f607cbb9222f305864dc189bc440a22672f7733e619d9770f8d34d1",
+        "scripts/client.py": "15db09d52c7f52e79355573ce37000308760707f532c2ec27078b92f54248bb7",
+        "scripts/guarded.py": "ab6822cdccb409c55bb7a06a9f85e06d577a2be526da2007c4624a0cab757955",
+        "scripts/service_api.py": "d79e5a00627b03e39bca37da142e2242fc2b10ca962772150454a5dc855bb684"
+      }
+    },
+    {
+      "name": "neuraldeep-rerank",
+      "version": "1.0.0",
+      "description": "Document reranking validation and read-only preflight. Inference remains blocked.",
+      "source": "https://github.com/viktor-drobek/neuraldeep-rerank.git",
+      "commit": "552a25f35a73b2214a0274ddd2dbaf52ae7229be",
+      "files": {
+        "LICENSE": "c5b1ccf4f087de762b65d94d3528430e4a5356ef682b0505b46599b666877c01",
+        "README.md": "84a8337133ecaae41678a733c8d2daee3021452fe0700e7b83d2db93feb51117",
+        "SKILL.md": "1bcadb07dcace75538e22baa3f6e6186717226b456388b077eda45d9ced3c4f1",
+        "STARTER_RELAY.md": "644883a76f93e431b59d683ede0031e5bdb7677588190bc1b0c91585de9362c4",
+        "TESTING.md": "0530dc297f607cbb9222f305864dc189bc440a22672f7733e619d9770f8d34d1",
+        "scripts/client.py": "ebaa6a70d6f808cfff740aeae892ad206272c0df6ba5bf18ce43da7b27eca275",
+        "scripts/guarded.py": "ab6822cdccb409c55bb7a06a9f85e06d577a2be526da2007c4624a0cab757955",
+        "scripts/service_api.py": "d79e5a00627b03e39bca37da142e2242fc2b10ca962772150454a5dc855bb684"
+      }
+    },
+    {
+      "name": "neuraldeep-search",
+      "version": "2.0.0",
+      "description": "Guarded web search, Telegram search and site crawling with live quota checks.",
+      "source": "https://github.com/viktor-drobek/neuraldeep-search.git",
+      "commit": "12fb30e741d0b73ca34558ffc9023880c7f16fef",
+      "files": {
+        "LICENSE": "c5b1ccf4f087de762b65d94d3528430e4a5356ef682b0505b46599b666877c01",
+        "README.md": "cbd3960454d4932bcf102539e4bbacb2b200c9200fee914025c545dc9e826302",
+        "SKILL.md": "392262c37c742f89709856038ddfb727674d18df4d2922ce6010f8b989fcf716",
+        "STARTER_RELAY.md": "cc7612995b620d8d84f4daa1cea5987e35e2dfcd5a32558a26a663bf6c6b343d",
+        "TESTING.md": "1468942c2b9c23ed229b51e36b5d38d5f75d2bb2f5b9bd025ccb1cdeb2ddfbab",
+        "scripts/client.py": "8097e0b02ead2d89e40a46e22d8a1761f9bcc9b5712d63dbffdeb236bdc3ea1b"
+      }
+    },
+    {
+      "name": "neuraldeep-speechcore",
+      "version": "2.0.0",
+      "description": "Wallet-approved recording uploads and resumable transcripts. Subscription uploads remain blocked.",
+      "source": "https://github.com/viktor-drobek/neuraldeep-speechcore.git",
+      "commit": "3f33a8fa44c692329ce3b2b2670eabeb29cfef22",
+      "files": {
+        "LICENSE": "c5b1ccf4f087de762b65d94d3528430e4a5356ef682b0505b46599b666877c01",
+        "README.md": "e2518bfe464e34c9cf000c87ea2c5fcbf85dcf590ffe2ec575aae25529d67929",
+        "SKILL.md": "8fb070ea2f1ae18bf6dab834ae121b4d0bcce60a20930da05b88b52dafdd44b5",
+        "STARTER_RELAY.md": "94e7cedbdc13705d501659c0a68091dd0f5a0ba1f973fed9e0dac69f29b7f255",
+        "TESTING.md": "b30b3bf160355c97128a8909f4078eff9db3a09f1fd769c5f61b967a8fd69690",
+        "scripts/client.py": "94147521ad0926c7e942b10938a1554c3e3dbe416e3094865df963485d33c6a8"
+      }
+    },
+    {
+      "name": "neuraldeep-transcriptions",
+      "version": "2.0.0",
+      "description": "Wallet-approved gigaam-v3 and Whisper transcription. Subscription submissions remain blocked.",
+      "source": "https://github.com/viktor-drobek/neuraldeep-transcriptions.git",
+      "commit": "d1da0f48f9c1ef222299bb4dd1517cd6e36830ff",
+      "files": {
+        "LICENSE": "c5b1ccf4f087de762b65d94d3528430e4a5356ef682b0505b46599b666877c01",
+        "README.md": "99502fa7a87782d30c85794d695499916f36b50fe4d25f997500ca85b101e849",
+        "SKILL.md": "cdd7688c50dc9e93f52d809d2d9853e79781cf619717a8d1c56b47e809227203",
+        "STARTER_RELAY.md": "241fe61b8bdf87c2349485edc7aecc5ac4b40d7105f571a6094dc346aa74a2bd",
+        "TESTING.md": "4f52fadf1a9777064aa3e9bc4e42dcf4b20524d2df30d3ef86a9a0344fafc254",
+        "scripts/client.py": "6b89f60fa2ccd0a565909c1e6afda4cd57d9826933ebe268c92fcf1da4b63435"
+      }
+    },
+    {
+      "name": "neuraldeep-tts",
+      "version": "1.0.0",
+      "description": "Wallet-approved WAV speech synthesis with eight voices. Subscription synthesis remains blocked.",
+      "source": "https://github.com/viktor-drobek/neuraldeep-tts.git",
+      "commit": "20b04024e80d4ff797e26c4a371182ef1e8d6b83",
+      "files": {
+        "LICENSE": "c5b1ccf4f087de762b65d94d3528430e4a5356ef682b0505b46599b666877c01",
+        "README.md": "9efa86c247a3013ea132f5d87ffd9f6c682e87acaa8c96ab103920f51882f19b",
+        "SKILL.md": "e2c2d446453555763eda5da08badc5b7e45acc4e1822103bfa0bda00bc2fcdd4",
+        "STARTER_RELAY.md": "6e7da5f29f522bef218c1aef1855958fa145ccf2a2ef907a03df5a2a5039c01c",
+        "TESTING.md": "0530dc297f607cbb9222f305864dc189bc440a22672f7733e619d9770f8d34d1",
+        "scripts/client.py": "a424742f9d18f92fba2e803c92b1b5a3e3d5e707451c4e94cbb23c991f51d0fb",
+        "scripts/guarded.py": "ab6822cdccb409c55bb7a06a9f85e06d577a2be526da2007c4624a0cab757955",
+        "scripts/service_api.py": "d79e5a00627b03e39bca37da142e2242fc2b10ca962772150454a5dc855bb684"
+      }
+    }
+  ]
+}

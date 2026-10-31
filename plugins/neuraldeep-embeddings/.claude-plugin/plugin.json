@@ -1,0 +1,16 @@
+{
+  "name": "neuraldeep-embeddings",
+  "version": "1.0.0",
+  "description": "Embedding payload validation, retrieval prefixes and read-only preflight. Inference remains blocked.",
+  "author": {
+    "name": "Viktor Drobek",
+    "email": "viktor@drobek.online"
+  },
+  "homepage": "https://github.com/viktor-drobek/neuraldeep-embeddings",
+  "repository": "https://github.com/viktor-drobek/neuraldeep-embeddings.git",
+  "license": "MIT",
+  "keywords": [
+    "neuraldeep",
+    "neuraldeep-embeddings"
+  ]
+}

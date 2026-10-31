@@ -1,0 +1,16 @@
+{
+  "name": "neuraldeep-chat",
+  "version": "1.0.0",
+  "description": "Chat, single-image vision and structured-output validation. Inference remains blocked.",
+  "author": {
+    "name": "Viktor Drobek",
+    "email": "viktor@drobek.online"
+  },
+  "homepage": "https://github.com/viktor-drobek/neuraldeep-chat",
+  "repository": "https://github.com/viktor-drobek/neuraldeep-chat.git",
+  "license": "MIT",
+  "keywords": [
+    "neuraldeep",
+    "neuraldeep-chat"
+  ]
+}

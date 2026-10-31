@@ -1,0 +1,38 @@
+name: marketplace-tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.x"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Offline catalogs, installer and CLI checks
+        shell: bash
+        run: |
+          export TMPDIR="$(mktemp -d)"
+          trap 'rm -rf "$TMPDIR"' EXIT
+          env -i PATH="$PATH" TMPDIR="$TMPDIR" CODDY_HOME=/nonexistent bash --noprofile --norc <<'SH'
+          set -euo pipefail
+          python3 -B scripts/catalog.py
+          python3 -B -m unittest discover -s tests
+          LC_ALL=C PYTHONUTF8=0 python3 -B -m unittest discover -s tests
+          python3 -X warn_default_encoding -B -m unittest discover -s tests
+          for skill in plugins/*/skills/*; do
+            python3 -B "$skill/scripts/client.py" --help
+          done
+          git diff --check
+          SH

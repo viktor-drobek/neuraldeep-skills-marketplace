@@ -1,0 +1,21 @@
+# Skill catalog
+
+All runtime files are pinned to public source commits.
+
+| Skill | Version | Capabilities and limits | Source commit |
+|---|---|---|---|
+| [neuraldeep-books](plugins/neuraldeep-books/README.md) | 1.0.0 | Catalogue, contents, chapters and full-text search. No vector inference or model-answer calls. | [20058271827c](https://github.com/viktor-drobek/neuraldeep-books/commit/20058271827c5535461ad0d150fd2dd3ef51b4fc) |
+| [neuraldeep-chat](plugins/neuraldeep-chat/README.md) | 1.0.0 | Chat, single-image vision and structured-output validation. Inference remains blocked. | [427f77bb1ace](https://github.com/viktor-drobek/neuraldeep-chat/commit/427f77bb1ace43dbede92451ba09521dd0afa711) |
+| [neuraldeep-decisions](plugins/neuraldeep-decisions/README.md) | 1.0.0 | Text classification and scales with explicit wallet approval. Subscription requests remain blocked. | [43d3633284d7](https://github.com/viktor-drobek/neuraldeep-decisions/commit/43d3633284d7d9d037a7337808becf134d70b94f) |
+| [neuraldeep-diarization](plugins/neuraldeep-diarization/README.md) | 1.0.0 | Guarded speaker diarization and offline merge with timed transcripts. | [74b41e60d162](https://github.com/viktor-drobek/neuraldeep-diarization/commit/74b41e60d162fe97af17aa43a5b1c71aa4274c9e) |
+| [neuraldeep-drift](plugins/neuraldeep-drift/README.md) | 1.0.0 | Remote-agent API reference and local payload validation. Execution remains blocked before network access. | [26e80a9a9a78](https://github.com/viktor-drobek/neuraldeep-drift/commit/26e80a9a9a78e5b1b3f9555c078471f1eb9048c0) |
+| [neuraldeep-embeddings](plugins/neuraldeep-embeddings/README.md) | 1.0.0 | Embedding payload validation, retrieval prefixes and read-only preflight. Inference remains blocked. | [a481bd3b2f28](https://github.com/viktor-drobek/neuraldeep-embeddings/commit/a481bd3b2f286f596b9a9830cc7eabd576c5a6c4) |
+| [neuraldeep-images](plugins/neuraldeep-images/README.md) | 2.0.0 | Guarded image generation, upscale, background removal, enhancement and avatars. | [0077d67c94bb](https://github.com/viktor-drobek/neuraldeep-images/commit/0077d67c94bb532c15eea3f980d94a7345d89bab) |
+| [neuraldeep-music](plugins/neuraldeep-music/README.md) | 1.0.0 | Wallet-approved text-to-music, WAV artifacts and resumable jobs. Subscription generation remains blocked. | [b55e6d19de5d](https://github.com/viktor-drobek/neuraldeep-music/commit/b55e6d19de5d870d210d00e2e749d3575ed755f5) |
+| [neuraldeep-ocr](plugins/neuraldeep-ocr/README.md) | 2.0.0 | Guarded PDF and image OCR with fast/pro profiles, page ranges and resumable jobs. | [6f174b11b242](https://github.com/viktor-drobek/neuraldeep-ocr/commit/6f174b11b2425194ff1da8e466011d3bb6f6fdab) |
+| [neuraldeep-pii](plugins/neuraldeep-pii/README.md) | 1.0.0 | Personal-data anonymization and restoration validation. Submissions remain blocked. | [96756ddf582e](https://github.com/viktor-drobek/neuraldeep-pii/commit/96756ddf582e20a922d4e3a5c3effd49efd0d30d) |
+| [neuraldeep-rerank](plugins/neuraldeep-rerank/README.md) | 1.0.0 | Document reranking validation and read-only preflight. Inference remains blocked. | [552a25f35a73](https://github.com/viktor-drobek/neuraldeep-rerank/commit/552a25f35a73b2214a0274ddd2dbaf52ae7229be) |
+| [neuraldeep-search](plugins/neuraldeep-search/README.md) | 2.0.0 | Guarded web search, Telegram search and site crawling with live quota checks. | [12fb30e741d0](https://github.com/viktor-drobek/neuraldeep-search/commit/12fb30e741d0b73ca34558ffc9023880c7f16fef) |
+| [neuraldeep-speechcore](plugins/neuraldeep-speechcore/README.md) | 2.0.0 | Wallet-approved recording uploads and resumable transcripts. Subscription uploads remain blocked. | [3f33a8fa44c6](https://github.com/viktor-drobek/neuraldeep-speechcore/commit/3f33a8fa44c692329ce3b2b2670eabeb29cfef22) |
+| [neuraldeep-transcriptions](plugins/neuraldeep-transcriptions/README.md) | 2.0.0 | Wallet-approved gigaam-v3 and Whisper transcription. Subscription submissions remain blocked. | [d1da0f48f9c1](https://github.com/viktor-drobek/neuraldeep-transcriptions/commit/d1da0f48f9c1ef222299bb4dd1517cd6e36830ff) |
+| [neuraldeep-tts](plugins/neuraldeep-tts/README.md) | 1.0.0 | Wallet-approved WAV speech synthesis with eight voices. Subscription synthesis remains blocked. | [20b04024e80d](https://github.com/viktor-drobek/neuraldeep-tts/commit/20b04024e80d4ff797e26c4a371182ef1e8d6b83) |
