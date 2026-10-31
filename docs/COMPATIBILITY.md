@@ -12,7 +12,7 @@
 
 The root portable manifests target Agent Plugins 1.0.0. They contain only common metadata and use the default `skills/` layout. Claude compatibility manifests are separate, without the portable `$schema` field. The Cursor catalog follows the documented multi-plugin repository format and points at the same local package directories. No absolute paths, paths outside a plugin, plugin hooks or MCP configuration are needed.
 
-Native catalogs have identical package names and bare relative string sources such as `"./plugins/neuraldeep-search"`. This is a documented Codex source form and works with Coddy 1.3.68, which prioritizes the .agents catalog but rejects an explicit `source.kind` of `local`. Coddy reads missing package versions from the companion Claude catalog. The Codex policy is `AVAILABLE` with `ON_INSTALL` authentication, following its documented marketplace schema. There are no MCP servers requiring marketplace authentication. Service keys remain the guarded helper's responsibility, not the plugin installer's responsibility.
+Native catalogs have identical package names and bare relative string sources such as `"./plugins/neuraldeep-search"`. This is a documented Codex source form and works with Coddy 1.3.68, which prioritizes the .agents catalog but rejects the explicit `{"source":"local","path":"..."}` source object. Coddy reads missing package versions from the companion Claude catalog. The Codex policy is `AVAILABLE` with `ON_INSTALL` authentication, following its documented marketplace schema. There are no MCP servers requiring marketplace authentication. Service keys remain the guarded helper's responsibility, not the plugin installer's responsibility.
 
 ## Codex and Cursor UI flows
 

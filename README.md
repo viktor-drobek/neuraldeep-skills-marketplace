@@ -81,7 +81,7 @@ python3 -B scripts/catalog.py
 python3 -B -m unittest discover -s tests
 ```
 
-See [the contributor guide](AGENTS.md) and [verification evidence](TESTING.md). All development checks are offline. Publishing this catalog does not validate live provider quotas or authorize a live test.
+See [the contributor guide](AGENTS.md) and [verification evidence](TESTING.md). The Python development suite is offline. Native install smoke tests fetch public GitHub repositories and never submit provider jobs. Publishing this catalog does not validate live provider quotas or authorize a live test.
 
 ## License
 
