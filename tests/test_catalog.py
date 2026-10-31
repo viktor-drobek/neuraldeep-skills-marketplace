@@ -57,14 +57,13 @@ class CatalogTests(unittest.TestCase):
     def test_valid_bundle_has_matching_source_version_and_hashes(self):
         self.assertEqual(catalog.validate_bundle(self.root), self.document)
 
-    def test_generated_catalogs_have_same_local_sources_and_available_policy(self):
+    def test_generated_catalogs_have_compatible_relative_sources_and_available_policy(self):
         generated = catalog.render(self.root)
         claude = json.loads(generated[".claude-plugin/marketplace.json"])
         codex = json.loads(generated[".agents/plugins/marketplace.json"])
         self.assertEqual(claude["name"], codex["name"])
         self.assertEqual(claude["plugins"][0]["source"], "./plugins/neuraldeep-example")
-        self.assertEqual(codex["plugins"][0]["source"], {
-            "source": "local", "path": "./plugins/neuraldeep-example"})
+        self.assertEqual(codex["plugins"][0]["source"], "./plugins/neuraldeep-example")
         self.assertEqual(codex["plugins"][0]["policy"], {
             "installation": "AVAILABLE", "authentication": "ON_INSTALL"})
         self.assertEqual(claude["owner"]["name"], "Viktor Drobek")

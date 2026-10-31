@@ -5,7 +5,7 @@
     "email": "viktor@drobek.online"
   },
   "metadata": {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Guarded NeuralDeep skills by Viktor Drobek."
   },
   "plugins": [

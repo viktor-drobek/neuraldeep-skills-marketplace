@@ -6,10 +6,7 @@
   "plugins": [
     {
       "name": "neuraldeep-books",
-      "source": {
-        "source": "local",
-        "path": "./plugins/neuraldeep-books"
-      },
+      "source": "./plugins/neuraldeep-books",
       "description": "Catalogue, contents, chapters and full-text search. No vector inference or model-answer calls.",
       "category": "Productivity",
       "policy": {
@@ -19,10 +16,7 @@
     },
     {
       "name": "neuraldeep-chat",
-      "source": {
-        "source": "local",
-        "path": "./plugins/neuraldeep-chat"
-      },
+      "source": "./plugins/neuraldeep-chat",
       "description": "Chat, single-image vision and structured-output validation. Inference remains blocked.",
       "category": "Productivity",
       "policy": {
@@ -32,10 +26,7 @@
     },
     {
       "name": "neuraldeep-decisions",
-      "source": {
-        "source": "local",
-        "path": "./plugins/neuraldeep-decisions"
-      },
+      "source": "./plugins/neuraldeep-decisions",
       "description": "Text classification and scales with explicit wallet approval. Subscription requests remain blocked.",
       "category": "Productivity",
       "policy": {
@@ -45,10 +36,7 @@
     },
     {
       "name": "neuraldeep-diarization",
-      "source": {
-        "source": "local",
-        "path": "./plugins/neuraldeep-diarization"
-      },
+      "source": "./plugins/neuraldeep-diarization",
       "description": "Guarded speaker diarization and offline merge with timed transcripts.",
       "category": "Productivity",
       "policy": {
@@ -58,10 +46,7 @@
     },
     {
       "name": "neuraldeep-drift",
-      "source": {
-        "source": "local",
-        "path": "./plugins/neuraldeep-drift"
-      },
+      "source": "./plugins/neuraldeep-drift",
       "description": "Remote-agent API reference and local payload validation. Execution remains blocked before network access.",
       "category": "Productivity",
       "policy": {
@@ -71,10 +56,7 @@
     },
     {
       "name": "neuraldeep-embeddings",
-      "source": {
-        "source": "local",
-        "path": "./plugins/neuraldeep-embeddings"
-      },
+      "source": "./plugins/neuraldeep-embeddings",
       "description": "Embedding payload validation, retrieval prefixes and read-only preflight. Inference remains blocked.",
       "category": "Productivity",
       "policy": {
@@ -84,10 +66,7 @@
     },
     {
       "name": "neuraldeep-images",
-      "source": {
-        "source": "local",
-        "path": "./plugins/neuraldeep-images"
-      },
+      "source": "./plugins/neuraldeep-images",
       "description": "Guarded image generation, upscale, background removal, enhancement and avatars.",
       "category": "Productivity",
       "policy": {
@@ -97,10 +76,7 @@
     },
     {
       "name": "neuraldeep-music",
-      "source": {
-        "source": "local",
-        "path": "./plugins/neuraldeep-music"
-      },
+      "source": "./plugins/neuraldeep-music",
       "description": "Wallet-approved text-to-music, WAV artifacts and resumable jobs. Subscription generation remains blocked.",
       "category": "Productivity",
       "policy": {
@@ -110,10 +86,7 @@
     },
     {
       "name": "neuraldeep-ocr",
-      "source": {
-        "source": "local",
-        "path": "./plugins/neuraldeep-ocr"
-      },
+      "source": "./plugins/neuraldeep-ocr",
       "description": "Guarded PDF and image OCR with fast/pro profiles, page ranges and resumable jobs.",
       "category": "Productivity",
       "policy": {
@@ -123,10 +96,7 @@
     },
     {
       "name": "neuraldeep-pii",
-      "source": {
-        "source": "local",
-        "path": "./plugins/neuraldeep-pii"
-      },
+      "source": "./plugins/neuraldeep-pii",
       "description": "Personal-data anonymization and restoration validation. Submissions remain blocked.",
       "category": "Productivity",
       "policy": {
@@ -136,10 +106,7 @@
     },
     {
       "name": "neuraldeep-rerank",
-      "source": {
-        "source": "local",
-        "path": "./plugins/neuraldeep-rerank"
-      },
+      "source": "./plugins/neuraldeep-rerank",
       "description": "Document reranking validation and read-only preflight. Inference remains blocked.",
       "category": "Productivity",
       "policy": {
@@ -149,10 +116,7 @@
     },
     {
       "name": "neuraldeep-search",
-      "source": {
-        "source": "local",
-        "path": "./plugins/neuraldeep-search"
-      },
+      "source": "./plugins/neuraldeep-search",
       "description": "Guarded web search, Telegram search and site crawling with live quota checks.",
       "category": "Productivity",
       "policy": {
@@ -162,10 +126,7 @@
     },
     {
       "name": "neuraldeep-speechcore",
-      "source": {
-        "source": "local",
-        "path": "./plugins/neuraldeep-speechcore"
-      },
+      "source": "./plugins/neuraldeep-speechcore",
       "description": "Wallet-approved recording uploads and resumable transcripts. Subscription uploads remain blocked.",
       "category": "Productivity",
       "policy": {
@@ -175,10 +136,7 @@
     },
     {
       "name": "neuraldeep-transcriptions",
-      "source": {
-        "source": "local",
-        "path": "./plugins/neuraldeep-transcriptions"
-      },
+      "source": "./plugins/neuraldeep-transcriptions",
       "description": "Wallet-approved gigaam-v3 and Whisper transcription. Subscription submissions remain blocked.",
       "category": "Productivity",
       "policy": {
@@ -188,10 +146,7 @@
     },
     {
       "name": "neuraldeep-tts",
-      "source": {
-        "source": "local",
-        "path": "./plugins/neuraldeep-tts"
-      },
+      "source": "./plugins/neuraldeep-tts",
       "description": "Wallet-approved WAV speech synthesis with eight voices. Subscription synthesis remains blocked.",
       "category": "Productivity",
       "policy": {

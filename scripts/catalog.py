@@ -124,7 +124,7 @@ def render(root):
             "description": plugin["description"], "category": "productivity", "license": "MIT",
         })
         codex_plugins.append({
-            "name": name, "source": {"source": "local", "path": path},
+            "name": name, "source": path,
             "description": plugin["description"], "category": "Productivity",
             "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
         })

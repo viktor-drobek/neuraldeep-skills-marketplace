@@ -48,6 +48,8 @@ GitHub Actions runs the same offline checks on Python 3.10 and the latest 3.x. L
 
 Claude validation used an isolated HOME and CLAUDE_CONFIG_DIR. The command was `claude plugin validate --strict --json` against the root marketplace and each plugin directory. It validates manifests. It does not by itself prove interactive skill activation or execute the service helper.
 
-Public Coddy marketplace add, list and install checks require the GitHub repository to exist. They had not run at the time this initial publication snapshot was prepared. They must use a private temporary HOME and CODDY_HOME and must not modify an operator's real skill installation.
+After publication, Claude Code added the public GitHub marketplace and installed neuraldeep-search@neuraldeep-skills successfully in a fresh temporary configuration. The enabled plugin's runtime files matched the pinned hashes. No interactive model session was started.
+
+The initial public Coddy add and list checks succeeded and showed all 15 entries. Installation exposed an interoperability defect in marketplace 1.0.0. Coddy 1.3.68 rejects the explicit Codex source object with `source.kind = local`. The regression test now requires bare relative string paths, a documented Codex form that Coddy classifies as an in-repository path. It failed against the old object form before the renderer was changed. Marketplace 1.0.1 changes only catalog representation, not skill versions or runtime bytes.
 
 Codex and Cursor CLIs were unavailable. Their catalogs and package layouts were checked against the official references in docs/COMPATIBILITY.md, not tested end to end in their UIs. No vendor directory submission or approval is claimed. Live provider quotas, billing and service availability were not tested.
